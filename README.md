@@ -1,58 +1,85 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# 📚 Gestor BiblioStock
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+Sistema de gestión e inventario bibliotecario desarrollado con **Laravel** y **PostgreSQL**, creado como parte del proyecto universitario de programación (Módulo 2).
 
-## About Laravel
+---
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+## 👥 Guía de Instalación para el Equipo (Usuarios de Windows)
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+Si eres colaborador del proyecto y usas **Windows**, sigue estos pasos al pie de la letra para configurar tu entorno local y poner a correr la aplicación.
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+### Requisitos Previos
+Asegúrate de tener instalado en tu PC:
+1. **PHP** (Versión 8.3 con extensiones habilitadas: `pgsql`, `curl`, `xml`, `mbstring`, `zip`, `fileinfo`)
+2. **Composer** (Gestor de dependencias de PHP)
+3. **PostgreSQL** y **pgAdmin 4** (Motor de base de datos)
+4. **Node.js y NPM** (Para el manejo de assets)
+5. **Git for Windows** (Incluye la terminal **Git Bash**)
 
-## Learning Laravel
+---
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+### Paso 1: Clonar el Repositorio
+1. Abre **Git Bash** en tu computadora.
+2. Ubícate en la carpeta donde desees guardar el proyecto (ej. Documentos):
+   ```bash
+   cd /c/Users/TuNombreDeUsuario/Documents
 
-In addition, [Laracasts](https://laracasts.com) contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+3. git clone https://github.com/TrvpChylt/gestor_bibliostock.git
+4. cd gestor-bibliostock
 
-You can also watch bite-sized lessons with real-world projects on [Laravel Learn](https://laravel.com/learn), where you will be guided through building a Laravel application from scratch while learning PHP fundamentals.
+---
 
-## Agentic Development
+### Paso 2: Instalar Dependencias
+1. Dentro de la carpeta del Proyecto Ejecuta estos comandos
+2.  composer install
+    npm install
 
-Laravel's predictable structure and conventions make it ideal for AI coding agents like Claude Code, Cursor, and GitHub Copilot. Install [Laravel Boost](https://laravel.com/docs/ai) to supercharge your AI workflow:
 
-```bash
-composer require laravel/boost --dev
+### Paso 3: Configurar la Base de Datos
+1. Vamos a utilizar PostgreSQL, con la interfaz de pgAdmin 4
+2. Descarga el instalador:
+3. Entra a la página oficial: postgresql.org/download/windows
+4. Haz clic en Download the installer y elige la versión más reciente (ej. versión 18 o 17) para Windows x86-64.
 
-php artisan boost:install
-```
+Ejecuta y Siguiente:
 
-Boost provides your agent 15+ tools and skills that help agents build Laravel applications while following best practices.
+Abre el archivo descargado (.exe).
 
-## Contributing
+Haz clic en Next en las primeras ventanas de bienvenida y elige la carpeta de instalación por defecto.
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+Selecciona los componentes:
 
-## Code of Conduct
+Asegúrate de que todas las casillas estén marcadas (especialmente PostgreSQL Server, pgAdmin 4 y Command Line Tools). Dale a Next.
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+Define una contraseña:
 
-## Security Vulnerabilities
+Te pedirá una contraseña para el superusuario (postgres). Escribe una clave fácil de recordar (por ejemplo, 1234 o postgres) y anótala, la vas a necesitar para conectar Laravel. Dale a Next.
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+Puerto por defecto:
 
-## License
+Déjalo en el puerto estándar que viene marcado (5432). Dale a Next en todas las ventanas siguientes hasta que comience la instalación (Next -> Next -> Finish).
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+### Paso 4: Configurar el Archivo de Entorno
+1. Abre el archivo .env con tu editor de texto favorito (como VS Code) y actualiza el bloque de base de datos con tus credenciales locales:
+
+DB_CONNECTION=pgsql
+DB_HOST=127.0.0.1
+DB_PORT=5432
+DB_DATABASE=gestor_bibliostock
+DB_USERNAME=postgres
+DB_PASSWORD=tu_clave_segura_de_postgres
+
+2. Genera la llave de encripción secreta de Laravel:
+
+php artisan key:generate
+
+### Paso 5: Migraciones y Servidor Local
+1. Ejecuta las migraciones para crear las tablas en la base de datos:
+
+Bash
+php artisan migrate
+
+2. Inicia el servidor de desarrollo local:
+
+Bash
+php artisan serve
