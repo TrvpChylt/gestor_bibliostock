@@ -25,13 +25,17 @@ Asegúrate de tener instalado en tu PC:
    cd /c/Users/TuNombreDeUsuario/Documents
 
 3. git clone https://github.com/TrvpChylt/gestor_bibliostock.git
-4. cd gestor-bibliostock
+
+    ```bash
+    4. cd gestor-bibliostock
+
 
 ---
 
 ### Paso 2: Instalar Dependencias
-1. Dentro de la carpeta del Proyecto Ejecuta estos comandos
-2.  composer install
+1. Dentro de la carpeta del Proyecto Ejecuta estos comandos:
+    ```bash
+    composer install
     npm install
 
 
@@ -62,24 +66,26 @@ Déjalo en el puerto estándar que viene marcado (5432). Dale a Next en todas la
 ### Paso 4: Configurar el Archivo de Entorno
 1. Abre el archivo .env con tu editor de texto favorito (como VS Code) y actualiza el bloque de base de datos con tus credenciales locales:
 
-DB_CONNECTION=pgsql
-DB_HOST=127.0.0.1
-DB_PORT=5432
-DB_DATABASE=gestor_bibliostock
-DB_USERNAME=postgres
-DB_PASSWORD=tu_clave_segura_de_postgres
+    ```bash
+    DB_CONNECTION=pgsql
+    DB_HOST=127.0.0.1
+    DB_PORT=5432
+    DB_DATABASE=gestor_bibliostock
+    DB_USERNAME=postgres
+    DB_PASSWORD=tu_clave_segura_de_postgres
 
 2. Genera la llave de encripción secreta de Laravel:
 
-php artisan key:generate
+    ```bash
+    php artisan key:generate
 
 ### Paso 5: Migraciones y Servidor Local
 1. Ejecuta las migraciones para crear las tablas en la base de datos:
 
-Bash
-php artisan migrate
+    ```bash
+    php artisan migrate
 
 2. Inicia el servidor de desarrollo local:
 
-Bash
-php artisan serve
+    ```bash
+    php artisan serve
