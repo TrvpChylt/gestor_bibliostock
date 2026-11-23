@@ -7,6 +7,8 @@
 <body>
     <h1>Listado de libros</h1>
 
+    <a href="{{ route('libros.create') }}">Nuevo libro</a>
+
     @if (session('success'))
         <p>{{ session('success') }}</p>
     @endif
@@ -15,6 +17,7 @@
         @foreach ($libros as $libro)
             <li>
                 {{ $libro->titulo }} - {{ $libro->autor }} (Stock: {{ $libro->stock }})
+                <a href="{{ route('libros.edit', $libro) }}">Editar</a>
                 <form action="{{ route('libros.destroy', $libro) }}" method="POST" style="display:inline;" onsubmit="return confirm('¿Eliminar este libro?');">
                     @csrf
                     @method('DELETE')
