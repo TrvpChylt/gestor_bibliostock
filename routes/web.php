@@ -13,3 +13,5 @@ Route::post('/libros', [LibroController::class, 'store'])->name('libros.store');
 
 Route::get('/libros/{libro}/edit', [LibroController::class, 'edit'])->name('libros.edit');
 Route::put('/libros/{libro}', [LibroController::class, 'update'])->name('libros.update');
+
+Route::get('/libros', [LibroController::class, 'index'])->name('libros.index');

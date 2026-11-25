@@ -7,55 +7,18 @@ use Illuminate\Http\Request;
 
 class LibroController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $libros = Libro::all();
-        return view('libros.index', compact('libros'));
-    }
+        $buscar = $request->input('buscar');
 
-    public function destroy(Libro $libro)
-    {
-        $libro->delete();
-        return redirect()->route('libros.index')->with('success', 'Libro eliminado correctamente.');
-    }
+        $libros = Libro::query()
+            ->when($buscar, function ($query, $buscar) {
+                $query->where('titulo', 'ilike', "%{$buscar}%")
+                      ->orWhere('autor', 'ilike', "%{$buscar}%");
+            })
+            ->orderBy('titulo')
+            ->get();
 
-    public function create()
-    {
-        return view('libros.create');
-    }
-
-    public function store(Request $request)
-    {
-        $validated = $request->validate([
-            'titulo' => ['required', 'string', 'max:255'],
-            'autor'  => ['required', 'string', 'max:255'],
-            'stock'  => ['required', 'integer', 'min:0'],
-        ]);
-
-        Libro::create($validated);
-
-        return redirect()
-            ->route('libros.index')
-            ->with('success', 'Libro creado correctamente.');
-    }
-
-    public function edit(Libro $libro)
-    {
-        return view('libros.edit', compact('libro'));
-    }
-
-    public function update(Request $request, Libro $libro)
-    {
-        $validated = $request->validate([
-            'titulo' => ['required', 'string', 'max:255'],
-            'autor'  => ['required', 'string', 'max:255'],
-            'stock'  => ['required', 'integer', 'min:0'],
-        ]);
-
-        $libro->update($validated);
-
-        return redirect()
-            ->route('libros.index')
-            ->with('success', 'Libro actualizado correctamente.');
+        return view('libros.index', compact('libros', 'buscar'));
     }
 }
